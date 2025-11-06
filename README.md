@@ -8,9 +8,29 @@ Scripts to move PDF files from your Downloads folder to your iCloud Drive "!PCC 
 - A folder named "!PCC Reading and Other" in your iCloud Drive
 - PDF files in your Downloads folder
 
-## Usage
+## Quick One-Liner (Recommended)
 
-### Option 1: Python Script (Recommended)
+Run this command directly in your Mac terminal:
+
+```bash
+for pdf in ~/Downloads/*.pdf; do [ -f "$pdf" ] && mv -n "$pdf" ~/Library/Mobile\ Documents/com~apple~CloudDocs/\!PCC\ Reading\ and\ Other/ && echo "Moved: $(basename "$pdf")"; done
+```
+
+This command:
+- Finds all PDFs in your Downloads folder
+- Moves them to your iCloud Drive "!PCC Reading and Other" folder
+- Won't overwrite existing files (`-n` flag)
+- Shows you what was moved
+
+### Or with a summary:
+
+```bash
+echo "Moving PDFs..." && moved=0 && for pdf in ~/Downloads/*.pdf; do [ -f "$pdf" ] && mv -n "$pdf" ~/Library/Mobile\ Documents/com~apple~CloudDocs/\!PCC\ Reading\ and\ Other/ && echo "✓ $(basename "$pdf")" && ((moved++)); done && echo "Done! Moved $moved file(s)"
+```
+
+## Alternative: Full Scripts
+
+### Option 1: Python Script
 
 ```bash
 python3 move_pdfs_to_icloud.py
